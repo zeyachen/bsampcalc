@@ -36,11 +36,11 @@ find_sample_size <- function(
     pwr = pwr,
     p = p1,
     n = n,
-    iterations = if (pass_iterations) small_iterations else NULL,
+    iterations = if (pass_iterations) small_iterations else NULL, # assign smaller iterations to binary search algorithm for efficiency
     ...
   )
 
-  # while loop to search through the increment with larger increment for better precision
+  # while loop to search through the increment with larger iterations for precision
   p <- 0
   i <- 1
   while (p < pwr & i < length(x)) {
