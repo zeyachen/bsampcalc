@@ -1,5 +1,37 @@
 
-
+#' Find Optimal Sample Size
+#'
+#' This function uses a binary search algorithm to find the optimal sample size required to achieve a specified power
+#' for a statistical test. The function takes the optimal sample size from the range of sample size values provided by the binary
+#' search helper function.
+#'
+#' @param np Integer. Lower bound of the sample size search range (default: 0).
+#' @param ni Integer. Upper bound of the sample size search range (default: 2000).
+#' @param dsearch Numeric. Precision of the binary search. Larger values lead to finer resolution and more iterations (default: 1).
+#' @param power_calc_fn Function. The power-calculating function within the environment that the user should already have.
+#' The results should be in a named list with the power value listed under power "return(list(power=final_power))".
+#' @param proportion_vector Numeric vector. Proportion of individuals allocated to each basket/arm in multi-arm trials (default: 1).
+#' @param pwr Numeric. Nominal/expected power (e.g., 0.8 for 80\% power).
+#' @param small_iterations Integer. Specifies the number of simulations to use in the initial (coarse) binary search if a simulation-based power function is provided.
+#' @param large_iterations Integer. Specifies the number of simulations to use in the subsequent (precise) search if a simulation-based power function is provided.
+#'
+#' @return Numeric. The optimal sample size.
+#'
+#' @examples
+#' \dontrun{
+#' find_sample_size(
+#'   np = 10,
+#'   ni = 1000,
+#'   dsearch = 5,
+#'   power_calc_fn = function(total_individuals, ...) {
+#'     return(list(power = 0.8))
+#'   },
+#'   proportion_vector = 1,
+#'   pwr = 0.8
+#' )}
+#' @export
+#' @author
+#' Desmond Zeya Chen (Contact via GitHub Issues)
 find_sample_size <- function(
     np = 0,
     ni = 2000,
